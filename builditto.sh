@@ -50,8 +50,10 @@ for flag in "${EXTRA_CMAKE_FLAGS[@]}"; do
 done
 
 echo "-- Trying to fetch updated translations..."
-curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+TRANSIFEX="tx-windows-amd64.zip"
 cd ./dist/languages
+curl -O -L "https://github.com/transifex/cli/releases/download/v1.6.17/${TRANSIFEX}"
+7z.exe x "${TRANSIFEX}"
 tx pull -t -a
 cd ../..
 
