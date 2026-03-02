@@ -54,7 +54,8 @@ TRANSIFEX="tx-windows-amd64.zip"
 cd ./dist/languages
 curl -O -L "https://github.com/transifex/cli/releases/download/v1.6.17/${TRANSIFEX}"
 7z.exe x "${TRANSIFEX}" -y
-tx pull -t -a
+chmod +x ./tx.exe
+./tx pull -t -a
 cd ../..
 
 echo "-- Starting builditto..."
