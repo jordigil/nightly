@@ -16,7 +16,7 @@ echo "   Name: ${EXE_NAME}"
 echo "-- Applying verision patcheaditto..."
 patch -p1 < ../patcheaditto.patch
 
-echo "   Donditto."
+echo "   Doneditto."
 
 declare -a BASE_CMAKE_FLAGS=(
     "-DBUILD_TESTING=OFF"
@@ -71,4 +71,4 @@ ZIP_NAME="$EXE_NAME.7z"
 rm -v "$EXE_NAME".exe
 echo "-- Packeteditto into $ZIP_NAME"
 
-echo "=== ALL DONITTO! ==="
+echo "=== ALL DONEDITTO! ==="
