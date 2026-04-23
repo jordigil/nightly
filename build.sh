@@ -1,22 +1,18 @@
 #!/bin/bash -e
 
-echo "-- Builditto..."
+echo "-- Building..."
 
 cd ./eden
 COUNT="$(git rev-list --count HEAD)"
 EXE_NAME="Eden-${COUNT}"
 
-echo "-- Builditto Configuration:"
-echo "   Toolchain: ${TOOLCHAIN}"
-echo "   Optimization: $OPTIMIZE"
-echo "   Architecture: ${ARCH}"
-echo "   Count: ${COUNT}"
-echo "   Name: ${EXE_NAME}"
+echo "-- Build Configuration:"
+echo "   ${EXE_NAME} ${TOOLCHAIN} ${ARCH} ${OPTIMIZE}"
 
 echo "-- Applying version patch..."
 patch -p1 < ../version.patch
 
-echo "   Doneditto."
+echo "   Done."
 
 declare -a BASE_CMAKE_FLAGS=(
     "-DBUILD_TESTING=OFF"
@@ -32,6 +28,11 @@ declare -a BASE_CMAKE_FLAGS=(
     "-DCMAKE_BUILD_TYPE=Release"
 )
 
+echo "-- Base CMake Flags:"
+for flag in "${BASE_CMAKE_FLAGS[@]}"; do
+    echo "   $flag"
+done
+
 declare -a EXTRA_CMAKE_FLAGS=(
     "-DNIGHTLY_BUILD=ON"
     "-DENABLE_LTO=OFF"
@@ -39,36 +40,31 @@ declare -a EXTRA_CMAKE_FLAGS=(
     "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache"
 )
 
-echo "-- Base CMake Flags:"
-for flag in "${BASE_CMAKE_FLAGS[@]}"; do
-    echo "   $flag"
-done
-
 echo "-- Extra CMake Flags:"
 for flag in "${EXTRA_CMAKE_FLAGS[@]}"; do
     echo "   $flag"
 done
 
-echo "-- Starting builditto..."
+echo "-- Starting build..."
 mkdir -p build
 cd build
 cmake .. -G Ninja "${BASE_CMAKE_FLAGS[@]}" "${EXTRA_CMAKE_FLAGS[@]}"
 ninja
-echo "-- Builditto Completeaditto."
+echo "-- Build Completed."
 
-echo "-- Sccacheaditto Stats:"
+echo "-- Sccache Stats:"
 sccache -s
 
-echo "-- Cleanditto up..."
+echo "-- Cleaning up..."
 find bin -type f -name "*.pdb" -exec rm -fv {} +
 rm -rf ./bin/plugins
 
-echo "-- Packing builditto in the artifacto-defacto..."
+echo "-- Packing build..."
 cd bin
 mv -v eden.exe "$EXE_NAME".exe
 ZIP_NAME="$EXE_NAME.7z"
 7z a -t7z -mx=9 "$ZIP_NAME" *
 rm -v "$EXE_NAME".exe
-echo "-- Packeteditto into $ZIP_NAME"
+echo "-- Packeted into $ZIP_NAME"
 
-echo "=== ALL DONEDITTO! ==="
+echo "=== ALL DONE! ==="
