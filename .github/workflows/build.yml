@@ -1,5 +1,5 @@
-name: Builditto
-run-name: ${{ github.event.inputs.job_to_run && format('Build {0}', github.event.inputs.job_to_run) || github.event.pull_request.title ||'Auto Release' }}
+name: Build
+run-name: ${{ github.event.inputs.job_to_run && format('Build {0}', github.event.inputs.job_to_run) || github.event.pull_request.title }}
 
 concurrency:
   group: build-eden-${{ github.ref }}-${{ github.event.inputs.job_to_run || github.event_name }}
@@ -13,14 +13,14 @@ on:
     inputs:
       job_to_run:
         type: choice
-        description: 'Gotta catch em all!'
+        description: 'windows'
         options: [windows]
         default: 'windows'
 
 jobs:
   windows:
     runs-on: ${{ matrix.runs-on }}
-    name: "Windowsditto"
+    name: "Windows"
     strategy:
       fail-fast: false
       matrix:
@@ -40,33 +40,33 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.2
 
-      - name: MSVCditto
+      - name: MSVC
         uses: ilammy/msvc-dev-cmd@v1.13.0
         with:
           arch: ${{ matrix.arch }}
 
-      - name: Vulkaneaditto
+      - name: Vulkan
         shell: powershell
         run: |
-          ./vulkaneaditto.ps1
+          ./vulkan.ps1
 
-      - name: Sccacheaditto
+      - name: Sccache
         uses: Eden-CI/sccache-action@v0.0.2
         with:
           disable_annotations: true
 
-      - name: Clonaditto
+      - name: Clone
         run: |
           git clone 'https://git.eden-emu.dev/eden-emu/eden.git' ./eden
           cd ./eden
           echo "VERSION=$(git rev-list --count HEAD)" >> "${GITHUB_ENV}"
 
-      - name: Compiladitto
+      - name: Compile
         run: |
-          chmod +x ./builditto.sh
-          ./builditto.sh
+          chmod +x ./build.sh
+          ./build.sh
 
-      - name: Uploaditto
+      - name: Upload
         uses: actions/upload-artifact@v7.0.1
         with:
           name: artefacto-defacto
