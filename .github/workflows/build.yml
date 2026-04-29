@@ -51,7 +51,7 @@ jobs:
           ./vulkan.ps1
 
       - name: Sccache
-        uses: Eden-CI/sccache-action@v0.0.2
+        uses: Eden-CI/sccache-action@master
         with:
           disable_annotations: true
 
