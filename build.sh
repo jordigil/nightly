@@ -6,9 +6,8 @@ cd ./eden
 COUNT="$(git rev-list --count HEAD)"
 EXE_NAME="Eden-${COUNT}"
 
-echo "-- Build Configuration:"
+echo "-- Configuration:"
 echo "   Revision:     ${COUNT}"
-echo "   Executable:   ${EXE_NAME}"
 echo "   Toolchain:    ${TOOLCHAIN}"
 echo "   Architecture: ${ARCH}"
 echo "   Optimization: ${OPTIMIZE}"
