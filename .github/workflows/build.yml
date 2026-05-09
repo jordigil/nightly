@@ -28,7 +28,7 @@ jobs:
            - toolchain: MSVC
              optimize: normal
              arch: x86_64
-             runs-on: windows-latest
+             runs-on: windows-2025
     defaults:
       run:
         shell: ${{ 'bash {0}' }}
