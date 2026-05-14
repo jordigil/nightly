@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 try {
     net session 1>$null 2>$null
 } catch {
-    Write-Host "This script must be run with administrator privileges! :("
+    Write-Host "This script must be run with admin rights! :("
     Exit 1
 }
 
