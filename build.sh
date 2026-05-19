@@ -7,10 +7,7 @@ COUNT="$(git rev-list --count HEAD)"
 EXE_NAME="Eden-${COUNT}"
 
 echo "-- Configuration:"
-echo "   Revision:     ${COUNT}"
-echo "   Toolchain:    ${TOOLCHAIN}"
-echo "   Architecture: ${ARCH}"
-echo "   Optimization: ${OPTIMIZE}"
+echo "   Rev: ${COUNT}"
 
 echo "-- Applying version patch..."
 patch -p1 < ../version.patch
