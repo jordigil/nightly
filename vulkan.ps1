@@ -7,7 +7,6 @@ try {
     Exit 1
 }
 
-# $VulkanSDKVer = "1.4.341.1"
 $VulkanSDKVer = "1.4.350.0"
 $VulkanSDKArch = "X64"
 $VulkanSDKOs = "windows"
